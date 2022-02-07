@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="">
+<head><title>Effah</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'hm/layout/styles/layout.css ' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+    <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="fl_left">
+        <h1><a href="/">EFFAH RESTAURANT</a></h1>
+      </div>
+      <nav id="mainav" class="fl_right">
+        <ul class="clear">
+          <li class="active"><a href="/">Home</a></li>
+{% if user.is_authenticated %}
+            <li><a class="active" href="{% url 'cartDetails' %}"><i class="fa fa-shopping-cart" style="font-size:20px"></i>{{itc}}</a></li>
+              <li><a class="active" href="{% url 'Logout' %}">Logout</a></li>
+          {% else %}
+              <li><a class="active" href="{% url 'Login' %}">Login</a></li>
+              <li><a class="active" href="{% url 'Registration' %}">Register</a></li>
+          {% endif %}
+            <li><a class="drop" href="#">Filter</a>
+            <ul>
+              <li class="active"><a href="/">Home</a></li>
+              <li><a class="active" href="{% url 'cartDetails' %}"><i class="fa fa-shopping-cart" style="font-size:10px"></i>
+<i cl</a></li>
+              <li><a class="active" href="{% url 'Logout' %}">Logout</a></li>
+              <li><a class="active" href="{% url 'Login' %}">Login</a></li>
+              <li><a class="active" href="{% url 'Registration' %}">Register</a></li>
+
+
+            </ul>
+          </li>
+        </ul>
+
+        </ul>
+      </nav>
+    </header>
+  </div>
+</body>
+</html>
+{% block content %}
+{% endblock %}

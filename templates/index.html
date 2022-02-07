@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <style>
+    .dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: left;
+  padding:36 px;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+</style>
+</head>
+{% if user.is_authenticated %}
+          <li>
+            Hai..{{user.username}}
+          </li>
+{% endif %}
+<body id="top">
+
+          <div class="bgded overlay" style="background-image:url({% static 'hm/images/demo/backgrounds/es1.jpg' %});height:100%;background-position:center;background-repeat:no-repeat;background-size:cover;">
+          <div class="wrapper row0">
+    <div id="topbar" class="hoc clear">
+  <div class="fl_right">
+        <!-- ################################################################################################ -->
+        <ul class="nospace">
+          <li id="searchform">
+            <div>
+              <form action="{% url 'search' %}" method="get">
+                <fieldset>
+                  <legend>Quick Search:</legend>
+                  <input type="text" placeholder="Enter Item Name To Searched" name="q">
+                  <button type="submit"><i class="fas fa-search"></i></button>
+                </fieldset>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <!-- ################################################################################################ -->
+      </div>
+    </div>
+          </div>
+                        <div class="dropdown">
+  <button class="dropbtn">Filter</button>
+  <div class="dropdown-content">
+    <a href="#">All</a>
+      {% for i in ct %}
+    <a href={{i.get_url}}>{{i.name}}</a>
+      {% endfor %}
+
+  </div>
+</div>
+
+<div id="pageintro" class="hoc clear">
+    <article class="center">
+      <h3 class="heading underline">QUALITTY FOOD ITEMS</h3>
+      <p>Register With Us And Have Qualitty Food Items At Your Door Step</p>
+    </article>
+  </div>
+</div>
+              <div class="products">
+      <ul class="nospace group figures btmspace-80">
+          {% for i in pg.object_list %}
+      <li class="one_third">
+        <figure><a class="imageover" href="{{i.get_url}}" ><img src="{{i.img.url}}" alt="" style="height:300px;width:500px;"></a></figure>
+
+            <p>{{i.name}}</p>
+          <p>{{i.desc|truncatechars:25}}</p>
+      </li>
+          {% endfor %}
+    </ul>
+          </div>
+              <!-- ################################################################################################ -->
+
+          <center>
+              {% for p in pg.paginator.page_range %}
+              <a href="?page={{p}}" class="btn btn-light btn-sm {% if pg.number == p %} active {% endif %}">{{p}}</a>
+              {% endfor %}
+          </center><hr class="btmspace-80">s
+    <!-- ################################################################################################ -->
+
+<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="{% static 'hm/layout/scripts/jquery.min.js' %}"></script>
+<script src="{% static 'hm/layout/scripts/jquery.backtotop.js' %}"></script>
+<script src="{% static 'hm/layout/scripts/jquery.mobilemenu.js' %}"></script>
+</body>
+</html>
+{% endblock %}
